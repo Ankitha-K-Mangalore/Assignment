@@ -1,3 +1,4 @@
+// This is a simple Java microservice example.
 package com.example.demo;
 
 import org.springframework.boot.SpringApplication;

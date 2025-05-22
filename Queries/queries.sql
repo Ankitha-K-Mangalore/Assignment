@@ -1,20 +1,43 @@
--- Create the employees table
-CREATE TABLE employees (
+
+-- CREATE TABLE
+CREATE TABLE niv_employees (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(100),
+    name VARCHAR(100) NOT NULL,
     department VARCHAR(50),
-    salary NUMERIC
+    salary NUMERIC(10, 2),
+    email VARCHAR(100) UNIQUE NOT NULL,
+    phone VARCHAR(20),
+    hire_date DATE NOT NULL,
+    job_title VARCHAR(50),
+    manager_id INTEGER,
+    status VARCHAR(20) DEFAULT 'active',
+    CONSTRAINT fk_manager FOREIGN KEY (manager_id) REFERENCES niv_employees(id)
 );
 
--- Insert sample data
-INSERT INTO employees (name, department, salary) VALUES ('Alice Johnson', 'Engineering', 75000);
-INSERT INTO employees (name, department, salary) VALUES ('Bob Smith', 'HR', 60000);
+-----------------------------------------------------------------------------------------------------------------
+-- INSERT
 
--- Select all data
-SELECT * FROM employees;
+INSERT INTO niv_employees (name, department, salary, email, phone, hire_date, job_title, manager_id, status) VALUES
+('Test 1', 'App mod', 85000.00, 'test1@niveussolutions.com', '+91999999999', '2022-01-15', 'Cloud Associate', NULL, 'active'),
+('Test 2', 'Data mod', 60000.00, 'test2@niveussolutions.com', '+91888888888', '2021-06-20', 'Cloud Specialist', NULL, 'active'),
+('test 3', 'Infra mod', 95000.00, 'test3@niveussolutions.com', '+9177777777', '2020-03-10', 'Cloud Leader', 1, 'active'),
+('test4', 'HR', 70000.00, 'test4@niveussolutions.com', '+9166666666', '2019-11-05', 'Cloud specialist', NULL, 'active');
 
--- Update salary for a specific employee
-UPDATE employees SET salary = 80000 WHERE name = 'Alice Johnson';
+------------------------------------------------------------------------------------------------------------------------------------
 
--- Delete a specific employee
-DELETE FROM employees WHERE name = 'Bob Smith';
+-- UPDATE
+UPDATE niv_employees
+SET salary = 65000.00,
+    job_title = 'Cloud specialist'
+WHERE name = 'test4';
+
+--------------------------------
+-- UPDATE
+
+
+SELECT * FROM niv_employees WHERE department = 'App mod';
+
+---------------------------
+-- DELETE
+ DELETE FROM niv_employees
+WHERE name = 'test 3';
